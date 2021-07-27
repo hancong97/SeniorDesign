@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Running Safety Sign up</title>
+
+    <link rel="stylesheet" media="screen" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+
+    <!-- Firebase Set-up Links -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-auth.js"></script>
+
+    <script>
+        var config = {
+            apiKey: "AIzaSyDcrEtw90SNSyKE2A-a3Ms0wpVWS7oYSBQ",
+            authDomain: "running-safety.firebaseapp.com",
+            databaseURL: "https://running-safety.firebaseio.com",
+            projectId: "running-safety",
+            storageBucket: "running-safety.appspot.com",
+            messagingSenderId: "611585924515"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+</head>
+<body>
+<div id="particles-js">
+
+    <div class="signup">
+        <div class="signup-top">
+            Sign up
+        </div>
+        <div class="signup-center clearfix">
+            <div class="signup-center-input">
+                <input id="DeviceID" type="text" name="" value="" placeholder="DeviceID" onfocus="this.placeholder=''" onblur="this.placeholder='DeviceID'"/>
+                <div class="signup-center-input-text">Device ID</div>
+            </div>
+        </div>
+        <div class="signup-center clearfix">
+            <div class="signup-center-input">
+                <input id="username" type="text" name="" value="" placeholder="Please Enter Email Address" onfocus="this.placeholder=''" onblur="this.placeholder='Please Enter Email Address'"/>
+                <div class="signup-center-input-text">Username</div>
+            </div>
+        </div>
+        <div class="signup-center clearfix">
+            <div class="signup-center-input">
+                <input id="password" type="password" name=""value="" placeholder="Please Enter a Password" onfocus="this.placeholder=''" onblur="this.placeholder='Please Enter a Password'"/>
+                <div class="signup-center-input-text">Password</div>
+            </div>
+        </div>
+        <div class="signup-button">
+            <button id="signbutt"> Sign-Up </button>
+        </div>
+        <div class="signup-button">
+            <button id="backbutt" onclick="history.back()"> Login Now! </button>
+        </div>
+
+    </div>
+    <div class="sk-rotating-plane"></div>
+</div>
+
+
+<!-- Javascript code -->
+<script>
+    //SignUp button function
+
+    function SignUp() {
+        var email = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        //alert('You have successfully signed up! Now you can login!');
+        var check = 0;
+        if (email == "" || password == ""){
+            alert('Please do not leave any blank!');
+        }
+        else{
+
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                var errorCode  = error.code;
+                var errorMessage = error.message;
+                var errorChecker = false;//error check?
+
+                if(errorCode == 'auth/weak-password'){
+                    alert('Password not valid');
+
+                }
+                else{
+                    alert(errorMessage);
+
+                };
+
+            });
+
+            alert('You have successfully signed up! Now you can back to login page!');
+
+
+
+                    };
+
+        //alert('You have successfully signed up! Now you can back to login page!');
+    }
+
+
+    //Initialize application every page load
+    function initApp() {
+        document.getElementById('signbutt').addEventListener('click', SignUp, false);
+    }
+
+    window.onload = function() {
+        initApp();
+    };
+</script>
+
+
+<!-- scripts -->
+<script src="js/particles.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
